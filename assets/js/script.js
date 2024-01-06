@@ -19,7 +19,7 @@ $(document).ready(function() {
 
   function displayTime() {
     $('#currentDay').text(dayjs().format('dddd, MMMM, D, YYYY'));
-    $('#currentTime'). text(dayjs().format('h:mm:ss'));
+    $('#currentTime'). text(dayjs().format('HH:mm:ss'));
   }
 
   setInterval(displayTime, 1000); // set interval runs the function every second otherwise will need to refresh the page
