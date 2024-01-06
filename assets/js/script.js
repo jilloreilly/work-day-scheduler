@@ -45,6 +45,8 @@ $(document).ready(function() {
         $(this).addClass('past');
       } else if (currentHour === blockHour){
         $(this).removeClass('past').addClass('present');
+      } else if (currentHour < blockHour){
+        $(this).addClass('future');
       }
     });
 
@@ -59,7 +61,8 @@ $(document).ready(function() {
   $('.saveBtn').click(function() {
     // Grab values of the text areas (class fof description)
     // Save the values to local storage using the IDs as the keys and the value of the textareas for the values
-
+    const description = $('.description').val();
+    console.log(description);
   })
 
   // Load any saved data from localStorage
