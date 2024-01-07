@@ -32,15 +32,13 @@ $(document).ready(function() {
     // Using jquery .each method parse the ID for each timeblock and compare the block hour to the current time, adding the class
     // based on if its in the past, future or present
     let currentHour = dayjs().hour();
-    console.log(currentHour);
+    console.log(`currentHour: ${currentHour}`);
     let timeblocks = $('.time-block');
-    console.log(timeblocks); // Object of timeblocks
-    
+        
     // jQuery .each method to loop over objects
     timeblocks.each(function() {
       let blockHour = parseInt($(this).attr('id'));
-      console.log(blockHour);
-
+      
       if (currentHour > blockHour) {
         $(this).addClass('past');
       } else if (currentHour === blockHour){
@@ -50,7 +48,6 @@ $(document).ready(function() {
       }
     });
 
-
   };
 
   // call the updateHour function
@@ -58,15 +55,57 @@ $(document).ready(function() {
 
   setInterval(updateHour, 15000) // Update every hour (15000 milliseconds)
   
+  // Save task to localstorage 
   $('.saveBtn').click(function() {
-    // Grab values of the text areas (class fof description)
-    // Save the values to local storage using the IDs as the keys and the value of the textareas for the values
-    const description = $('.description').val();
-    console.log(description);
-  })
+    const description = $($(this).siblings('.description')).val();
+
+    if (description) { // Only save to localstorage is there is a description
+      const currentBlockHour = $(this).parent().attr('id');
+      const latestTask = {currentBlockHour, description};
+      let taskList = JSON.parse(localStorage.getItem('savedTasks')) || [];
+    
+      taskList.push(latestTask);
+
+      localStorage.setItem('savedTasks', JSON.stringify(taskList));  
+    }
+
+  });
 
   // Load any saved data from localStorage
+  function displayTasks() {
+    const arrayTasks = JSON.parse(localStorage.getItem("savedTasks"));
+  
+    if (arrayTasks) {
+      const findHour = $('.time-block');
+  
+      findHour.each(function(index) {
+        //const hour = arrayTasks[index].currentBlockHour;
+        //const taskDescription = arrayTasks[index].description;
+  
+        // Update the current taskHour element based on index
+        const taskHour = parseInt($(this).attr('id'));
+  
+        // Update the input field with the task description
+        //$(taskHour).children('.description').val(taskDescription);
 
+        for (let i = 0; i < arrayTasks.length; i++) {
+          if (taskHour === arrayTasks[i].currentBlockHour ) {
+            $(taskHour).children('.description').val(arrayTasks[i].description);  
+              console.log('for loop');
+            }    
+          }
+  
+      });
+    }
+  }
+  
+  displayTasks();
+
+  // Function to clear tasks from page and from localstorage
+  $('.clearBtn').click(function() {
+    $('.description').val(''); // Clear tasks from page
+    localStorage.clear(); // Empty localstorage
+  });
 
 });
 
