@@ -32,9 +32,11 @@ $(document).ready(function() {
     // Using jquery .each method parse the ID for each timeblock and compare the block hour to the current time, adding the class
     // based on if its in the past, future or present
     let currentHour = dayjs().hour();
-    console.log(`currentHour: ${currentHour}`);
+    //console.log(`currentHour: ${currentHour}`);
     let timeblocks = $('.time-block');
-        
+    // let hour9 = $('#9')    
+    // console.log(timeblocks);
+    // console.log(hour9);
     // jQuery .each method to loop over objects
     timeblocks.each(function() {
       let blockHour = parseInt($(this).attr('id'));
@@ -74,25 +76,30 @@ $(document).ready(function() {
   // Load any saved data from localStorage
   function displayTasks() {
     const arrayTasks = JSON.parse(localStorage.getItem("savedTasks"));
-  
+    // console.log(arrayTasks);
+    // console.log(arrayTasks[0].description);
+    // console.log(arrayTasks[0].currentBlockHour);
+
     if (arrayTasks) {
       const findHour = $('.time-block');
   
       findHour.each(function(index) {
         //const hour = arrayTasks[index].currentBlockHour;
         //const taskDescription = arrayTasks[index].description;
-  
+        
+        //console.log(index);
         // Update the current taskHour element based on index
-        const taskHour = parseInt($(this).attr('id'));
-  
+        let hourBlock = parseInt($(this).attr('id'));
+        // console.log(`hourBlock: ${hourBlock}`);
+        // console.log($(hourBlock));
         // Update the input field with the task description
         //$(taskHour).children('.description').val(taskDescription);
 
         for (let i = 0; i < arrayTasks.length; i++) {
-          if (taskHour === arrayTasks[i].currentBlockHour ) {
-            $(taskHour).children('.description').val(arrayTasks[i].description);  
-              console.log('for loop');
-            }    
+          if (hourBlock == arrayTasks[i].currentBlockHour ) {
+            var hourBlockId = '#' + hourBlock;
+            $(hourBlockId).children('.description').val(arrayTasks[i].description);
+            }
           }
   
       });
