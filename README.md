@@ -6,7 +6,7 @@ Challenge 7 - A simple calendar application that allows a user to save events fo
 
 This calendar application showcases the jQuery and JavaScript skills I have gained from Module 7 (Third-Party APIs) of the Front-end Web Development Bootcamp. 
 
-This calendar application will run in the browser and feature dynamically updated HTML and CSS powered by jQuery and DayJs.
+This calendar application will run in the browser and feature dynamically updated HTML and CSS powered by **jQuery** and **Day.js**
 
 ## Usage
 
@@ -18,17 +18,17 @@ This calendar application will run in the browser and feature dynamically update
 
 ![Work Day Scheduler - Current date and time displayed. Timeblocks are colour coded (past, present, future).](assets/images/1-screenshot-timeblocks.png)
 
-3. The user can click on a timeblock and enter a task description.
+4. The user can click on a timeblock and enter a task description.
 
 ![Work Day Scheduler - Click on timeblock and enter a task.](assets/images/2-screenshot-enter-tasks.png)
 
-4. The task is saved to local storage when the 'Save' icon for that timeblock is clicked.
+5. The task is saved to local storage when the 'Save' icon for that timeblock is clicked.
 
 ![Work Day Scheduler - Click on Save icon to save to localstorage.](assets/images/3-screenshot-localstorage.png)
 
-4. If the page is refreshed the saved tasks will be reloaded to the page
+6. If the page is refreshed the saved tasks will be reloaded to the page
 
-5. The user can click on 'Clear all' to remove all saved tasks from the page and from local storage.
+7. The user can click on 'Clear all' to remove all saved tasks from the page and from local storage.
 
 ![Work Day Scheduler - Click on 'Clear all' to delete tasks from page and local storage.](assets/images/4-screenshot-clear.png)
 
