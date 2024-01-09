@@ -51,6 +51,8 @@ Thank you to the following:
 
 - My tutor **Cody Junier** for helping me resolve an issue of retrieving saved data from local storage and printing to the page on page refresh.
 
+- Icons8 for [favicon](https://icons8.com/icons/set/schedule)
+
 
 
 ## License
