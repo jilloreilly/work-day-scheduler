@@ -1,22 +1,6 @@
-// Display the current day at the top of the calender when a user opens the planner.
-
-// Present timeblocks for standard business hours when the user scrolls down.
-
-// Color-code each timeblock based on past, present, and future when the timeblock is viewed.
-
-// Allow a user to enter an event when they click a timeblock
-
-// Save the event in local storage when the save button is clicked in that timeblock.
-
-// Persist events between refreshes of a page
-
-// Optional - save all button
-// Optional - clear all button
-// Optional - clear button for each day
-
-
 $(document).ready(function() {
 
+  // Display date and time 
   function displayTime() {
     $('#currentDay').text(dayjs().format('dddd, MMMM, D, YYYY'));
     $('#currentTime'). text(dayjs().format('HH:mm:ss'));
@@ -24,23 +8,14 @@ $(document).ready(function() {
 
   setInterval(displayTime, 1000); // set interval runs the function every second otherwise will need to refresh the page
 
+  // Color-code each timeblock based on past, present, and future when the timeblock is viewed.
   function updateHour() {
-    // grab the current hour using dayjs
-
-    // Grab the class for the time blocks and store them in a variable
-
-    // Using jquery .each method parse the ID for each timeblock and compare the block hour to the current time, adding the class
-    // based on if its in the past, future or present
     let currentHour = dayjs().hour();
-    //console.log(`currentHour: ${currentHour}`);
     let timeblocks = $('.time-block');
-    // let hour9 = $('#9')    
-    // console.log(timeblocks);
-    // console.log(hour9);
-    // jQuery .each method to loop over objects
+    
     timeblocks.each(function() {
       let blockHour = parseInt($(this).attr('id'));
-      
+        
       if (currentHour > blockHour) {
         $(this).addClass('past');
       } else if (currentHour === blockHour){
@@ -49,7 +24,6 @@ $(document).ready(function() {
         $(this).addClass('future');
       }
     });
-
   };
 
   // call the updateHour function
@@ -61,50 +35,34 @@ $(document).ready(function() {
   $('.saveBtn').click(function() {
     const description = $($(this).siblings('.description')).val();
 
-    if (description) { // Only save to localstorage is there is a description
+    if (description) { // Only save to localstorage is there is text in the textarea
       const currentBlockHour = $(this).parent().attr('id');
       const latestTask = {currentBlockHour, description};
       let taskList = JSON.parse(localStorage.getItem('savedTasks')) || [];
-    
       taskList.push(latestTask);
-
       localStorage.setItem('savedTasks', JSON.stringify(taskList));  
     }
-
   });
 
   // Load any saved data from localStorage
   function displayTasks() {
     const arrayTasks = JSON.parse(localStorage.getItem("savedTasks"));
-    // console.log(arrayTasks);
-    // console.log(arrayTasks[0].description);
-    // console.log(arrayTasks[0].currentBlockHour);
-
+    
     if (arrayTasks) {
       const findHour = $('.time-block');
   
       findHour.each(function(index) {
-        //const hour = arrayTasks[index].currentBlockHour;
-        //const taskDescription = arrayTasks[index].description;
-        
-        //console.log(index);
-        // Update the current taskHour element based on index
         let hourBlock = parseInt($(this).attr('id'));
-        // console.log(`hourBlock: ${hourBlock}`);
-        // console.log($(hourBlock));
-        // Update the input field with the task description
-        //$(taskHour).children('.description').val(taskDescription);
 
         for (let i = 0; i < arrayTasks.length; i++) {
-          if (hourBlock == arrayTasks[i].currentBlockHour ) {
+          if (hourBlock == arrayTasks[i].currentBlockHour) {
             var hourBlockId = '#' + hourBlock;
             $(hourBlockId).children('.description').val(arrayTasks[i].description);
-            }
           }
-  
+        }
       });
     }
-  }
+  };
   
   displayTasks();
 
