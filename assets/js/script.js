@@ -40,7 +40,11 @@ $(document).ready(function() {
       const latestTask = {currentBlockHour, description};
       let taskList = JSON.parse(localStorage.getItem('savedTasks')) || [];
       taskList.push(latestTask);
-      localStorage.setItem('savedTasks', JSON.stringify(taskList));  
+      localStorage.setItem('savedTasks', JSON.stringify(taskList));
+      $('#feedback').addClass('show').removeClass('hide');
+      setTimeout(function () {
+        $('#feedback').addClass('hide').removeClass('show'); 
+      }, 1500)
     }
   });
 
